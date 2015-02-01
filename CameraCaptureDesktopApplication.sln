@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSFormsCamera", "CSFormsCamera\CSFormsCamera.csproj", "{FCE0EF94-572A-437A-9D75-7DF9492B3B68}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBFormsCamera", "VBFormsCamera\VBFormsCamera.vbproj", "{D46404C0-761B-4E42-A154-850905F112B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSWPFCamera", "CSWPFCamera\CSWPFCamera.csproj", "{1726542C-77AD-4ADB-BAE5-DC157A4D54F5}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBWPFCamera", "VBWPFCamera\VBWPFCamera.vbproj", "{023D94BC-268E-4102-8C23-E1B65CBFC295}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCE0EF94-572A-437A-9D75-7DF9492B3B68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCE0EF94-572A-437A-9D75-7DF9492B3B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCE0EF94-572A-437A-9D75-7DF9492B3B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCE0EF94-572A-437A-9D75-7DF9492B3B68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D46404C0-761B-4E42-A154-850905F112B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D46404C0-761B-4E42-A154-850905F112B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D46404C0-761B-4E42-A154-850905F112B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D46404C0-761B-4E42-A154-850905F112B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1726542C-77AD-4ADB-BAE5-DC157A4D54F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1726542C-77AD-4ADB-BAE5-DC157A4D54F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1726542C-77AD-4ADB-BAE5-DC157A4D54F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1726542C-77AD-4ADB-BAE5-DC157A4D54F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{023D94BC-268E-4102-8C23-E1B65CBFC295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{023D94BC-268E-4102-8C23-E1B65CBFC295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{023D94BC-268E-4102-8C23-E1B65CBFC295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{023D94BC-268E-4102-8C23-E1B65CBFC295}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
