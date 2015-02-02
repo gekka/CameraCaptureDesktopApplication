@@ -51,39 +51,40 @@ Class MainWindow
         Try
 
             Dim di = DirectCast(listBox1.SelectedItem, DeviceInformation)
+            If di IsNot Nothing Then
+                Using mediaCapture1 As New MediaCapture()
 
-            Using mediaCapture1 As New MediaCapture()
+                    AddHandler mediaCapture1.Failed, Sub(s, errorEventArgs)
+                                                         MessageBox.Show("キャプチャできませんでした:" + errorEventArgs.Message, "Error", MessageBoxButton.OK)
+                                                     End Sub
 
-                AddHandler mediaCapture1.Failed, Sub(s, errorEventArgs)
-                                                     MessageBox.Show("キャプチャできませんでした:" + errorEventArgs.Message, "Error", MessageBoxButton.OK)
-                                                 End Sub
+                    Dim setting As New MediaCaptureInitializationSettings()
+                    setting.VideoDeviceId = di.Id 'カメラ選択
+                    setting.StreamingCaptureMode = StreamingCaptureMode.Video
+                    Await mediaCapture1.InitializeAsync(setting)
 
-                Dim setting As New MediaCaptureInitializationSettings()
-                setting.VideoDeviceId = di.Id 'カメラ選択
-                setting.StreamingCaptureMode = StreamingCaptureMode.Video
-                Await mediaCapture1.InitializeAsync(setting)
+                    Dim pngProperties = ImageEncodingProperties.CreatePng()
+                    pngProperties.Width = CType(image1.ActualWidth, UInteger)
+                    pngProperties.Height = CType(image1.ActualHeight, UInteger)
 
-                Dim pngProperties = ImageEncodingProperties.CreatePng()
-                pngProperties.Width = CType(image1.ActualWidth, UInteger)
-                pngProperties.Height = CType(image1.ActualHeight, UInteger)
+                    Using randomAccessStream As New InMemoryRandomAccessStream()
 
-                Using randomAccessStream As New InMemoryRandomAccessStream()
+                        Await mediaCapture1.CapturePhotoToStreamAsync(pngProperties, randomAccessStream)
 
-                    Await mediaCapture1.CapturePhotoToStreamAsync(pngProperties, randomAccessStream)
+                        randomAccessStream.Seek(0)
 
-                    randomAccessStream.Seek(0)
-
-                    'ビットマップにして表示
-                    Dim bmp As New BitmapImage()
-                    Using stream = System.IO.WindowsRuntimeStreamExtensions.AsStream(randomAccessStream)
-                        bmp.BeginInit()
-                        bmp.CacheOption = BitmapCacheOption.OnLoad
-                        bmp.StreamSource = stream
-                        bmp.EndInit()
+                        'ビットマップにして表示
+                        Dim bmp As New BitmapImage()
+                        Using stream = System.IO.WindowsRuntimeStreamExtensions.AsStream(randomAccessStream)
+                            bmp.BeginInit()
+                            bmp.CacheOption = BitmapCacheOption.OnLoad
+                            bmp.StreamSource = stream
+                            bmp.EndInit()
+                        End Using
+                        Me.image1.Source = bmp
                     End Using
-                    Me.image1.Source = bmp
                 End Using
-            End Using
+            End If
         Catch ex As Exception
 
             MessageBox.Show(ex.Message)

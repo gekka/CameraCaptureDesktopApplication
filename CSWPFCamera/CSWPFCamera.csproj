@@ -33,7 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <!-- WinRを使えるように指定する-->
+  <!-- WinRTを使えるように指定する-->
   <PropertyGroup>
     <TargetPlatformVersion>8.0</TargetPlatformVersion>
   </PropertyGroup>

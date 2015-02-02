@@ -70,40 +70,42 @@ namespace CSWPFCamera
             try
             {
                 var di = (DeviceInformation)listBox1.SelectedItem;
-
-                using (MediaCapture mediaCapture = new MediaCapture())
+                if(di != null)
                 {
-                    mediaCapture.Failed += (s, e) =>
+                    using (MediaCapture mediaCapture = new MediaCapture())
                     {
-                        MessageBox.Show("キャプチャできませんでした:" + e.Message, "Error", MessageBoxButton.OK);
-                    };
-
-                    MediaCaptureInitializationSettings setting = new MediaCaptureInitializationSettings();
-                    setting.VideoDeviceId = di.Id;//カメラ選択
-                    setting.StreamingCaptureMode = StreamingCaptureMode.Video;
-                    await mediaCapture.InitializeAsync(setting);
-
-                    var pngProperties = ImageEncodingProperties.CreatePng();
-                    pngProperties.Width = (uint)image1.ActualWidth;
-                    pngProperties.Height = (uint)image1.ActualHeight;
-
-                    using (var randomAccessStream = new InMemoryRandomAccessStream())
-                    {
-                        await mediaCapture.CapturePhotoToStreamAsync(pngProperties, randomAccessStream);
-
-                        randomAccessStream.Seek(0);
-
-                        //ビットマップにして表示
-                        var bmp = new BitmapImage();
-                        using (System.IO.Stream stream = System.IO.WindowsRuntimeStreamExtensions.AsStream(randomAccessStream))
+                        mediaCapture.Failed += (s, e) =>
                         {
-                            bmp.BeginInit();
-                            bmp.CacheOption = BitmapCacheOption.OnLoad;
-                            bmp.StreamSource = stream;
-                            bmp.EndInit();
+                            MessageBox.Show("キャプチャできませんでした:" + e.Message, "Error", MessageBoxButton.OK);
+                        };
+
+                        MediaCaptureInitializationSettings setting = new MediaCaptureInitializationSettings();
+                        setting.VideoDeviceId = di.Id;//カメラ選択
+                        setting.StreamingCaptureMode = StreamingCaptureMode.Video;
+                        await mediaCapture.InitializeAsync(setting);
+
+                        var pngProperties = ImageEncodingProperties.CreatePng();
+                        pngProperties.Width = (uint)image1.ActualWidth;
+                        pngProperties.Height = (uint)image1.ActualHeight;
+
+                        using (var randomAccessStream = new InMemoryRandomAccessStream())
+                        {
+                            await mediaCapture.CapturePhotoToStreamAsync(pngProperties, randomAccessStream);
+
+                            randomAccessStream.Seek(0);
+
+                            //ビットマップにして表示
+                            var bmp = new BitmapImage();
+                            using (System.IO.Stream stream = System.IO.WindowsRuntimeStreamExtensions.AsStream(randomAccessStream))
+                            {
+                                bmp.BeginInit();
+                                bmp.CacheOption = BitmapCacheOption.OnLoad;
+                                bmp.StreamSource = stream;
+                                bmp.EndInit();
+                            }
+
+                            this.image1.Source = bmp;
                         }
-                        
-                        this.image1.Source = bmp;
                     }
                 }
             }

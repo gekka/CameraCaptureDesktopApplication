@@ -81,33 +81,35 @@ namespace CSFormsCamera
             try
             {
                 var di = (DeviceInformation)listBox1.SelectedItem;
-
-                using (MediaCapture mediaCapture = new MediaCapture())
+                if (di != null)
                 {
-                    mediaCapture.Failed += (s, e) =>
+                    using (MediaCapture mediaCapture = new MediaCapture())
                     {
-                        MessageBox.Show("キャプチャできませんでした:" + e.Message, "Error", MessageBoxButtons.OK);
-                    };
+                        mediaCapture.Failed += (s, e) =>
+                        {
+                            MessageBox.Show("キャプチャできませんでした:" + e.Message, "Error", MessageBoxButtons.OK);
+                        };
 
-                    MediaCaptureInitializationSettings setting = new MediaCaptureInitializationSettings();
-                    setting.VideoDeviceId = di.Id;//カメラ選択
-                    setting.StreamingCaptureMode = StreamingCaptureMode.Video;
-                    await mediaCapture.InitializeAsync(setting);
+                        MediaCaptureInitializationSettings setting = new MediaCaptureInitializationSettings();
+                        setting.VideoDeviceId = di.Id;//カメラ選択
+                        setting.StreamingCaptureMode = StreamingCaptureMode.Video;
+                        await mediaCapture.InitializeAsync(setting);
 
-                    var pngProperties = ImageEncodingProperties.CreatePng();
-                    pngProperties.Width = (uint)pictureBox1.Width; ;
-                    pngProperties.Height = (uint)pictureBox1.Height;
+                        var pngProperties = ImageEncodingProperties.CreatePng();
+                        pngProperties.Width = (uint)pictureBox1.Width; ;
+                        pngProperties.Height = (uint)pictureBox1.Height;
 
-                    using (var randomAccessStream = new InMemoryRandomAccessStream())
-                    {
-                        await mediaCapture.CapturePhotoToStreamAsync(pngProperties, randomAccessStream);
+                        using (var randomAccessStream = new InMemoryRandomAccessStream())
+                        {
+                            await mediaCapture.CapturePhotoToStreamAsync(pngProperties, randomAccessStream);
 
-                        randomAccessStream.Seek(0);
+                            randomAccessStream.Seek(0);
 
-                        //ビットマップにして表示
-                        System.IO.Stream stream = System.IO.WindowsRuntimeStreamExtensions.AsStream(randomAccessStream);
-                        var img = System.Drawing.Image.FromStream(stream);
-                        this.pictureBox1.Image = img;
+                            //ビットマップにして表示
+                            System.IO.Stream stream = System.IO.WindowsRuntimeStreamExtensions.AsStream(randomAccessStream);
+                            var img = System.Drawing.Image.FromStream(stream);
+                            this.pictureBox1.Image = img;
+                        }
                     }
                 }
             }
