@@ -63,6 +63,11 @@ Class MainWindow
                     setting.StreamingCaptureMode = StreamingCaptureMode.Video
                     Await mediaCapture1.InitializeAsync(setting)
 
+                    'ビデオの露出などの調整がたぶん自動になっていないので自動に設定する
+                    Dim vcon = mediaCapture1.VideoDeviceController
+                    vcon.Brightness.TrySetAuto(True)
+                    vcon.Contrast.TrySetAuto(True)
+
                     Dim pngProperties = ImageEncodingProperties.CreatePng()
                     pngProperties.Width = CType(image1.ActualWidth, UInteger)
                     pngProperties.Height = CType(image1.ActualHeight, UInteger)

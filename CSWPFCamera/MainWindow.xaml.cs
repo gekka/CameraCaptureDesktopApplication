@@ -84,6 +84,11 @@ namespace CSWPFCamera
                         setting.StreamingCaptureMode = StreamingCaptureMode.Video;
                         await mediaCapture.InitializeAsync(setting);
 
+                        //調整しないと暗い場合があるので
+                        var vcon = mediaCapture.VideoDeviceController;
+                        vcon.Brightness.TrySetAuto(true);
+                        vcon.Contrast.TrySetAuto(true);
+
                         var pngProperties = ImageEncodingProperties.CreatePng();
                         pngProperties.Width = (uint)image1.ActualWidth;
                         pngProperties.Height = (uint)image1.ActualHeight;

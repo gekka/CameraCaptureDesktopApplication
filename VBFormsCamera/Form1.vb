@@ -92,6 +92,11 @@ Public Class Form1
                     setting.StreamingCaptureMode = StreamingCaptureMode.Video
                     Await mediaCapture1.InitializeAsync(setting)
 
+                    'ビデオの露出などの調整がたぶん自動になっていないので自動に設定する
+                    Dim vcon = mediaCapture1.VideoDeviceController
+                    vcon.Brightness.TrySetAuto(True)
+                    vcon.Contrast.TrySetAuto(True)
+
                     Dim pngProperties = ImageEncodingProperties.CreatePng()
                     pngProperties.Width = CType(pictureBox1.Width, UInteger)
                     pngProperties.Height = CType(pictureBox1.Height, UInteger)
